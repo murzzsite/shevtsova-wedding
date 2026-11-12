@@ -77,86 +77,18 @@ const LEAD_ENDPOINT = 'https://lead-relay.leestygpt.workers.dev/lead/G48CJAX7HA'
     });
   }
 
-  /* ---------- scroll scenes ---------- */
-  const win = $('#win'), winFig = $('#winFig'), winImg = $('img', winFig), winPlate = $('#winPlate');
-  const work = $('.work'), weList = $('#weList'), weClip = $('#weClip'), weItems = $$('li', weList);
-  const youItems = $$('#youList li'), youN = $('#youN'), weN = $('#weN');
-  const gal = $('#gal'), galRail = $('#galRail');
-  const drifts = $$('[data-drift]');
+  /* ---------- scroll: header + reveal only, nothing pinned ---------- */
   const foot = $('.foot__name');
-
-  const prog = el => {
-    const r = el.getBoundingClientRect();
-    return clamp(-r.top / Math.max(1, r.height - window.innerHeight));
-  };
-  const S = { win: 0, work: 0, gal: 0 };      // smoothed
-  let T = { win: 0, work: 0, gal: 0 };        // targets
-  let youDone = -1, weDone = -1, hot = -1, plateOn = false;
-
-  function render() {
-    // window: strip opens to full screen
-    const e = easeIO(clamp(S.win / 0.62));
-    const side = lerp(6, 0, e), tb = lerp(42, 0, e);
-    winFig.style.clipPath = `inset(${tb}% ${side}% ${tb}% ${side}% round ${lerp(12, 0, e)}px)`;
-    winImg.style.transform = `scale(${lerp(1.18, 1, e)})`;
-    const on = S.win > 0.74;
-    if (on !== plateOn) { plateOn = on; winPlate.classList.toggle('is-on', on); }
-
-    // two columns
-    const listH = weList.offsetHeight, clipH = weClip.clientHeight;
-    const y = -S.work * Math.max(0, listH - clipH);
-    weList.style.transform = `translate3d(0,${y}px,0)`;
-    const focus = clipH * 0.46;
-    let passed = 0, hotIdx = -1, best = 1e9;
-    weItems.forEach((li, i) => {
-      const c = li.offsetTop + li.offsetHeight / 2 + y;
-      if (c < focus) passed = i + 1;
-      const d = Math.abs(c - focus);
-      if (d < best) { best = d; hotIdx = i; }
-    });
-    if (hotIdx !== hot) {
-      hot = hotIdx;
-      weItems.forEach((li, i) => li.classList.toggle('is-hot', i === hot));
-    }
-    if (passed !== weDone) { weDone = passed; weN.textContent = passed; }
-    const done = Math.min(6, Math.floor(S.work / 0.88 * 7));
-    if (done !== youDone) {
-      youDone = done; youN.textContent = done;
-      youItems.forEach((li, i) => li.classList.toggle('is-done', i < done));
-    }
-
-    // gallery rail
-    const dx = Math.max(0, galRail.scrollWidth - window.innerWidth);
-    galRail.style.transform = `translate3d(${-S.gal * dx}px,0,0)`;
-  }
-
-  let raf = 0;
-  function loop() {
-    raf = 0;
-    let moving = false;
-    for (const k in S) {
-      const d = T[k] - S[k];
-      if (Math.abs(d) > 0.0004) { S[k] += d * 0.16; moving = true; } else S[k] = T[k];
-    }
-    render();
-    if (moving) raf = requestAnimationFrame(loop);
-  }
-
-  function onScroll() {
+  let ticking = false;
+  const check = () => {
+    ticking = false;
     header?.classList.toggle('scrolled', window.scrollY > 8);
     const vh = window.innerHeight;
     revealEls.forEach(el => {
       if (!el.classList.contains('is-in') && el.getBoundingClientRect().top < vh * 0.92) el.classList.add('is-in');
     });
-    drifts.forEach(el => {
-      const r = el.getBoundingClientRect();
-      el.style.transform = `translateY(${(r.top + r.height / 2 - vh / 2) * parseFloat(el.dataset.drift)}px)`;
-    });
-    if (reduce) { T = { win: 1, work: 1, gal: 1 }; Object.assign(S, T); render(); return; }
-    T = { win: prog(win), work: prog(work), gal: prog(gal) };
-    if (!raf) raf = requestAnimationFrame(loop);
-  }
-
+  };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(check); } };
   function fitFoot() {
     if (!foot) return;
     const w = foot.parentElement.clientWidth - parseFloat(getComputedStyle(foot.parentElement).paddingLeft) * 2;
@@ -164,13 +96,11 @@ const LEAD_ENDPOINT = 'https://lead-relay.leestygpt.workers.dev/lead/G48CJAX7HA'
     const sw = foot.scrollWidth || 1;
     foot.style.fontSize = Math.floor(100 * w / sw) + 'px';
   }
-
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => { fitFoot(); onScroll(); });
-  window.addEventListener('load', () => { fitFoot(); onScroll(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { fitFoot(); onScroll(); });
-  fitFoot(); onScroll();
-  if (!reduce) { S.win = T.win; S.work = T.work; S.gal = T.gal; render(); }
+  window.addEventListener('load', () => { fitFoot(); check(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { fitFoot(); check(); });
+  fitFoot(); check();
 
   /* ---------- live: build the day ---------- */
   const FORMATS = {
@@ -230,6 +160,11 @@ const LEAD_ENDPOINT = 'https://lead-relay.leestygpt.workers.dev/lead/G48CJAX7HA'
       wish.value = hob.length ? 'Люблю: ' + hob.map(h => HOBBY[h].label.toLowerCase()).join(', ') + '. Хочу, чтобы это было в программе дня.' : '';
     }
   });
+
+  $$('[data-pack]').forEach(a => a.addEventListener('click', () => {
+    const sel = $('#packSelect');
+    if (sel) [...sel.options].forEach(o => { if (o.text.startsWith(a.dataset.pack)) sel.value = o.value; });
+  }));
 
   /* ---------- form → Worker → Telegram ---------- */
   const form = $('#leadForm'), note = $('#formNote');
