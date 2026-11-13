@@ -13,7 +13,7 @@
 <script>document.documentElement.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches&&!/[?&]motion/.test(location.search))document.documentElement.classList.add('reduce')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600&family=Oswald:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -63,10 +63,10 @@
       <h2 id="work-h" data-reveal>Задач сотни. Ваших шесть.</h2>
       <ol class="you">
         <li data-reveal><i aria-hidden="true"></i><span>Дата и город</span></li>
-        <li data-reveal><i aria-hidden="true"></i><span>Бюджет</span></li>
-        <li data-reveal><i aria-hidden="true"></i><span>Список гостей: цифра и важные имена</span></li>
-        <li data-reveal><i aria-hidden="true"></i><span>Формат: камерный ужин или большой день</span></li>
-        <li data-reveal><i aria-hidden="true"></i><span>Площадка из трёх, которые мы покажем</span></li>
+        <li data-reveal><i aria-hidden="true"></i><span>Бюджет без колец и нарядов</span></li>
+        <li data-reveal><i aria-hidden="true"></i><span>Количество гостей</span></li>
+        <li data-reveal><i aria-hidden="true"></i><span>Формат: камерный ужин или шикарный свадебный день</span></li>
+        <li data-reveal><i aria-hidden="true"></i><span>Площадка из трёх, которые мы предложим</span></li>
         <li data-reveal><i aria-hidden="true"></i><span>Финальное «да» сценарию дня</span></li>
       </ol>
     </div>
@@ -106,21 +106,13 @@
   <div class="wrap day__grid">
     <div class="day__ctl">
       <h2 id="day-h" data-reveal>Соберите свой день</h2>
-      <p class="day__lead" data-reveal>Выберите формат и то, что любите. Покажем, как будет выглядеть день и что в нём останется за нами.</p>
+      <p class="day__lead" data-reveal>Выберите формат. Покажем, как будет выглядеть день и что в нём останется за нами.</p>
 
       <fieldset class="opt" data-reveal>
         <legend class="sr">Формат</legend>
         <label class="opt__row"><input type="radio" name="fmt" value="quiet" checked><span>Камерный ужин за городом</span></label>
         <label class="opt__row"><input type="radio" name="fmt" value="classic"><span>Классическая свадьба</span></label>
-        <label class="opt__row"><input type="radio" name="fmt" value="grand"><span>Фешенебельная на 300 гостей</span></label>
-      </fieldset>
-
-      <fieldset class="opt opt--chips" data-reveal>
-        <legend class="sr">Что вы любите</legend>
-        <label class="chip"><input type="checkbox" name="hob" value="cars"><span>Машины</span></label>
-        <label class="chip"><input type="checkbox" name="hob" value="moto"><span>Мотоциклы</span></label>
-        <label class="chip"><input type="checkbox" name="hob" value="padel"><span>Падл</span></label>
-        <label class="chip"><input type="checkbox" name="hob" value="nature"><span>Природа</span></label>
+        <label class="opt__row"><input type="radio" name="fmt" value="grand"><span>Фешенебельная на ±100 гостей</span></label>
       </fieldset>
     </div>
 
@@ -146,7 +138,7 @@
       <div class="about__text" data-reveal>
         <img class="about__drop" src="img/larisa-portrait.jpg" width="1100" height="1650" alt="Лариса Шевцова" loading="lazy">
         <p><b>Жениху не нужно «устраиваться на вторую работу»</b> организатором своей свадьбы. От вас решения по важным для вас вещам, остальное мы берём на себя и держим вас в курсе без лишнего шума.</p>
-        <p class="soft">Мы не навязываем шаблонов: у одного это камерный ужин за городом, у другого фешенебельная свадьба на 300 гостей. День должен быть про вас.</p>
+        <p class="soft">Мы не навязываем шаблонов: у одного это камерный ужин за городом, у другого фешенебельная свадьба на ±100 гостей. День должен быть про вас.</p>
       </div>
     </div>
   </div>
@@ -246,7 +238,7 @@
     </div>
     <div class="qa" data-reveal>
       <h3>Вы работаете только с большими свадьбами?</h3>
-      <p>Нет. У одного жениха это камерный ужин за городом, у другого фешенебельная свадьба на 300 гостей. Формат выбираете вы, шаблонов у нас нет.</p>
+      <p>Нет. У одного жениха это камерный ужин за городом, у другого фешенебельная свадьба на ±100 гостей. Формат выбираете вы, шаблонов у нас нет.</p>
     </div>
     <div class="qa" data-reveal>
       <h3>Как вы держите меня в курсе?</h3>
@@ -299,7 +291,7 @@
           <option>Пока не решил(и)</option>
           <option>Камерный ужин за городом</option>
           <option>Классическая свадьба</option>
-          <option>Фешенебельная на 300 гостей</option>
+          <option>Фешенебельная на ±100 гостей</option>
         </select>
       </label>
       <label class="field"><span>Пожелания</span><textarea name="wishes" id="wishes" rows="3" placeholder="Что для вас важно в этом дне"></textarea></label>

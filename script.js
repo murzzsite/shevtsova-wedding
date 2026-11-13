@@ -1,4 +1,4 @@
-const LEAD_ENDPOINT = 'https://lead-relay.leestygpt.workers.dev/lead/G48CJAX7HA';
+﻿const LEAD_ENDPOINT = 'https://lead-relay.leestygpt.workers.dev/lead/G48CJAX7HA';
 
 (() => {
   const reduce = document.documentElement.classList.contains('reduce');
@@ -101,15 +101,17 @@ const LEAD_ENDPOINT = 'https://lead-relay.leestygpt.workers.dev/lead/G48CJAX7HA'
   window.addEventListener('load', () => { fitFoot(); check(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { fitFoot(); check(); });
   fitFoot(); check();
+  if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', fitFoot);
+  setTimeout(fitFoot, 800); setTimeout(fitFoot, 2500);
 
   /* ---------- live: build the day ---------- */
   const FORMATS = {
     quiet: { name: 'Камерный ужин за городом', rows: [
-      ['15:00', 'Гости собираются на террасе, встречаем бокалом'],
+      ['15:00', 'Гости собираются на велком, встречаем с игристым под скрипку или саксофон'],
       ['16:00', 'Церемония в саду, без сцены и суеты'],
-      ['17:30', 'Аперитив на закате, живая музыка'],
+      ['17:00', 'Аперитив на закате, живая музыка'],
       ['19:00', 'Ужин за одним длинным столом'],
-      ['21:30', 'Тосты, первый танец, десерт'],
+      ['20:00', 'Тосты, первый танец, торт'],
       ['23:00', 'Трансфер гостей и тихое завершение']] },
     classic: { name: 'Классическая свадьба', rows: [
       ['10:00', 'Утро жениха, сборы без спешки'],
@@ -118,7 +120,7 @@ const LEAD_ENDPOINT = 'https://lead-relay.leestygpt.workers.dev/lead/G48CJAX7HA'
       ['17:00', 'Банкет, тосты, ведущий'],
       ['20:00', 'Первый танец и торт'],
       ['23:30', 'Финал и разъезд']] },
-    grand: { name: 'Фешенебельная на 300 гостей', rows: [
+    grand: { name: 'Фешенебельная на ±100 гостей', rows: [
       ['09:00', 'Утро жениха и сборы'],
       ['14:00', 'Велком-зона, встреча гостей'],
       ['15:30', 'Церемония в главном зале'],
