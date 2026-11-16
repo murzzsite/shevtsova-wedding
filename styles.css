@@ -1,8 +1,8 @@
-:root{
+﻿:root{
   --bg:#f1f2f4; --ink:#0a0a0b; --soft:#5b5e64;
   --g-light:linear-gradient(180deg,#ffffff 0%,#eceef0 100%);
   --g-mid:linear-gradient(160deg,#f7f8f9 0%,#dde0e4 100%);
-  --g-dark:linear-gradient(160deg,#050505 0%,#2b2c2f 100%);
+  --g-dark:linear-gradient(110deg,#050505 0%,#34363a 35%,#74777e 52%,#1b1c1e 70%,#050505 100%);
   --g-page:linear-gradient(180deg,#ffffff 0%,#eef0f2 40%,#e2e5e8 100%);
   --m:clamp(16px,2.2vw,32px); --r:22px;
   --head:'Jost','Helvetica Neue',Arial,sans-serif; --body:'Jost','Helvetica Neue',Arial,sans-serif;
@@ -222,3 +222,10 @@ h1,h2,.logo,.hero__h,.work__we-h,.we,.vb__w,.foot__name,.opt__row span,.sheet__f
   .qa h2,.qa h3,.qa p{grid-column:1/-1}
   .qa{gap:14px;padding-bottom:48px}
 }
+
+/* one gradient everywhere: the same satin as the first screen */
+.work__you,.pk__b--3,.foot,.opt input:checked+span,.btn:not(.btn--light){background-size:220% 100%;background-position:30% 0}
+.work__you,.pk__b--3,.foot{animation:sheen 9s ease-in-out infinite alternate}
+.btn:not(.btn--light):hover{filter:none;background-position:80% 0}
+.btn{transition:transform .35s var(--ease),background-position .6s var(--ease)}
+.reduce .work__you,.reduce .pk__b--3,.reduce .foot{animation:none}
