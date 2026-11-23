@@ -56,6 +56,9 @@ h1,h2,.logo,.hero__h,.work__we-h,.we,.vb__w,.foot__name,.opt__row span,.sheet__f
 .w{display:inline-block;overflow:hidden;padding:.06em 0 .02em;margin:-.06em 0 -.02em}
 .w>span{display:inline-block;background:linear-gradient(100deg,#050505 30%,#80838a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--ink)}
 .strip{flex:1;display:block;height:.74em;border-radius:var(--r);align-self:baseline;transform:translateY(.02em);background:linear-gradient(110deg,#050505 0%,#34363a 35%,#d9dce0 52%,#1b1c1e 70%,#050505 100%);background-size:220% 100%;animation:sheen 9s ease-in-out infinite alternate}
+.strip{overflow:hidden}
+.strip picture,.strip img{display:block;width:100%;height:100%}
+.strip img{object-fit:cover;object-position:50% 60%;border-radius:inherit}
 @keyframes sheen{from{background-position:0 0}to{background-position:100% 0}}
 .hero__foot{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--m);align-items:end}
 .hero__lead{grid-column:1/7;font-size:clamp(19px,1.5vw,24px);line-height:1.5;font-weight:300;max-width:34em}
@@ -229,3 +232,14 @@ h1,h2,.logo,.hero__h,.work__we-h,.we,.vb__w,.foot__name,.opt__row span,.sheet__f
 .btn:not(.btn--light):hover{filter:none;background-position:80% 0}
 .btn{transition:transform .35s var(--ease),background-position .6s var(--ease)}
 .reduce .work__you,.reduce .pk__b--3,.reduce .foot{animation:none}
+
+/* projects */
+.proj{padding-bottom:var(--gap)}
+.proj__h{font-size:clamp(40px,6vw,108px);line-height:.95}
+.proj__lead{margin-top:clamp(16px,2vw,28px);font-size:clamp(19px,1.5vw,24px);line-height:1.5;max-width:34em}
+.proj__rail{display:flex;gap:var(--m);overflow-x:auto;scroll-snap-type:x proximity;padding:clamp(32px,4vw,56px) var(--m);scrollbar-width:thin}
+.proj__c{flex:none;width:clamp(220px,24vw,360px);margin:0;scroll-snap-align:start}
+.proj__c img,.proj__k img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:var(--r)}
+.proj__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--m)}
+.proj__k{margin:0}
+@media (max-width:800px){.proj__grid{grid-template-columns:repeat(2,1fr)}.proj__c{width:68vw}}
